@@ -264,7 +264,6 @@ Page({
     if (ip_num <= 0 || isNaN(ip_num)) {
       ipFlag = true
     }
-    console.log(ipFlag)
     that.setData({
       IPFlag: ipFlag
     })
@@ -274,7 +273,6 @@ Page({
     var that = this;
     var values = e.detail.value;
     var items = that.data.areaItems;
-    console.log("IPS: ", values);
     for (let i = 0; i < items.length; ++i) {
       items[i].checked = false;
       for (let j = 0; j < values.length; ++j) {
@@ -284,7 +282,6 @@ Page({
         }
       }
     }
-    console.log(items);
     this.setData({
       areaItems: items
     })
@@ -322,8 +319,6 @@ Page({
       allGuyFlag: allGuyFlag,
     })
     var test = that.data.techGuy/that.data.allGuy;
-    console.log(test);
-    console.log(!isNaN(test)&&isFinite(test));
     this.checkGuyRatio();
   },
 
@@ -333,12 +328,10 @@ Page({
     if (that.data.techGuyFlag == null || that.data.allGuyFlag == null) {
       return
     }
-    console.log("rational")
     var guyRatioFlag = false;
     var techGuy = that.data.techGuy;
     var allGuy = that.data.allGuy;
     var guyRatio = null;
-    console.log("guy flag: ", that.data.techGuyFlag, that.data.allGuyFlag)
     if(!that.data.techGuyFlag && !that.data.allGuyFlag) {
       guyRatio = techGuy/allGuy*100;
     }
@@ -361,8 +354,6 @@ Page({
     if (thisYearSale == "" || thisYearSale < 0 || isNaN(thisYearSale)) {
       yearFlag = true;
     }
-    console.log(yearFlag)
-    console.log("asset: ", thisYearSale)
     that.setData({
       thisYearFlag: yearFlag,
     });
@@ -380,8 +371,6 @@ Page({
     if (lastYearSale == "" || lastYearSale < 0 || isNaN(lastYearSale)) {
       yearFlag = true;
     }
-    console.log(yearFlag)
-    console.log("asset: ", lastYearSale)
     that.setData({
       lastYearFlag: yearFlag,
     });
@@ -399,8 +388,6 @@ Page({
     if (beforeLastYearSale == "" || beforeLastYearSale < 0 || isNaN(beforeLastYearSale)) {
       yearFlag = true;
     }
-    console.log(yearFlag)
-    console.log("asset: ", beforeLastYearSale)
     that.setData({
       beforeLastYearFlag: yearFlag,
     });
@@ -426,9 +413,6 @@ Page({
     that.setData({
       threeYearSaleAggreFlag: flag,
     })
-    console.log("sale rate flag: ", !that.data.thisYearFlag);
-    console.log("sale rate flag: ", !that.data.lastYearFlag);
-    console.log("sale rate flag: ", !that.data.beforeLastYearFlag);
     this.checkRandDRatio();
     this.checkSalesGrowthRate();
   },
@@ -448,7 +432,6 @@ Page({
   },
 
   checkRandDRatio() {
-    console.log("checking R&D");
     var that = this;
     var threeYearSale = that.data.threeYearSaleAggre;
     var threeYearRandD = that.data.threeYearRandD;
@@ -458,11 +441,6 @@ Page({
       RandDRatioFlag = true;
       RandDRatio = threeYearRandD/threeYearSale*100;
     }
-    console.log("RandD: " + threeYearRandD);
-    console.log("sale: " + threeYearSale);
-    console.log("ratio:" + RandDRatio);
-    console.log("Flag: " + RandDRatioFlag);
-    console.log("isNaN RandD: " + !isNaN(NaN));
     that.setData({
       RandDRatio: RandDRatio,
       RandDRatioFlag: RandDRatioFlag,
@@ -519,8 +497,6 @@ Page({
     var flag = false;
     var Ratio = "";
     if (!that.data.thisYearFlag && !that.data.highTechInComeFlag) {
-      console.log("highTech Ratio: ", that.data.highTech);
-      console.log("highTech Ratio: ", that.data.thisYear);
       Ratio = that.data.highTechInCome/that.data.thisYear*100;
       flag = true;
     }
@@ -533,21 +509,9 @@ Page({
   advancedDegreesChanges(e) {
     var that = this;
     var checkedItem = e.detail.value;
-    console.log(that.data.advancedDegree);
     that.setData({
       advancedDegree: checkedItem,
     });
-    console.log(that.data.advancedDegree);
-    console.log(checkedItem);
-    // for (let i = 0, len = items.length; i < len; ++i) {
-    // console.log(items[i].name + "  " + checkedItem);
-    //   items[i].checked = items[i].name === checkedItem;
-    // }
-    // console.log(items);
-
-    // that.setData({
-    //   advancedDegrees: items,
-    // })
     that.aggregateScore();
   },
 
@@ -557,7 +521,6 @@ Page({
     that.setData({
       techImportance: checkedItem,
     });
-    console.log(that.data.techImportance);
     that.aggregateScore();
   },
 
@@ -567,7 +530,6 @@ Page({
     that.setData({
       IPNumber: checkedItem,
     });
-    console.log(that.data.IPNumber);
     that.aggregateScore();
   },
 
@@ -577,7 +539,6 @@ Page({
     that.setData({
       IPAcquire: checkedItem,
     });
-    console.log(that.data.IPAcquire);
     that.aggregateScore();
   },
 
@@ -587,7 +548,6 @@ Page({
     that.setData({
       inVolvedInStandard: checkedItem,
     });
-    console.log(that.data.inVolvedInStandard);
     that.aggregateScore();
   },
 
@@ -597,44 +557,16 @@ Page({
     that.setData({
       convertAbility: checkedItem,
     });
-    console.log(that.data.convertAbility);
     that.aggregateScore();
   },
 
   advancedManageAbilities(e) {
     var that = this;
     var values = e.detail.value;
-    console.log("IPS: ", values);
     that.setData({
       manageAbility: values,
     });
-    console.log("mA: ", that.data.manageAbility);
-    // for (let i = 0; i < items.length; ++i) {
-    //   items[i].checked = false;
-    //   for (let j = 0; j < values.length; ++j) {
-    //     if (items[i].value === values[j]) {
-    //       items[i].checked = true;
-    //       break;
-    //     }
-    //   }
-    // }
-    // console.log(items);
-    // this.setData({
-    //   areaItems: items
-    // })
     that.aggregateScore();
-  },
-
-  test() {
-    console.log("test");
-    console.log("degree: " + this.data.advancedDegree);
-    console.log("importance: " + this.data.techImportance);
-    console.log("IPNumber: " + this.data.IPNumber);
-    console.log("IPAcquire: " + this.data.IPAcquire);
-    console.log("standard: " + this.data.inVolvedInStandard);
-    console.log("convert: " + this.data.convertAbility);
-    this.aggregateScore();
-    this.checkRate();
   },
 
   bindThisYearAsset(e) {
@@ -647,7 +579,6 @@ Page({
     if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
-    console.log("this year asset flag: ", assetFlag)
     that.setData({
       thisYearAssetFlag: assetFlag,
     });
@@ -664,7 +595,6 @@ Page({
     if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
-    console.log(assetFlag)
     that.setData({
       lastYearAssetFlag: assetFlag,
     });
@@ -681,8 +611,6 @@ Page({
     if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
-    console.log(assetFlag)
-    console.log("asset: ", asset)
     that.setData({
       beforeLastYearAssetFlag: assetFlag,
     });
@@ -693,7 +621,6 @@ Page({
     var that = this;
     var result = {"low": 0, "high": 0};
     var mA = that.data.manageAbility;
-    console.log("init result: ", result);
     var datas = [
       JSON.parse(that.data.advancedDegree),
       JSON.parse(that.data.techImportance),
@@ -707,48 +634,27 @@ Page({
     for (var tmp of datas) {
       result.low += tmp.low;
       result.high += tmp.high;
-      // console.log("low: ", result.low);
-      // console.log("low: " + tmp.low);
-      // console.log("tmp: " + tmp);
     }
     for (var tmp of mA) {
       tmp = JSON.parse(tmp);
       result.low += tmp.low;
       result.high += tmp.high;
-      console.log("low: ", result.low);
-      console.log("low: " + tmp.low);
-      // console.log("tmp: " + tmp);
     }
 
-    // var tmp = JSON.parse(that.data.advancedDegree);
-    // console.log("low: ", result.low);
-    // console.log("low: " + tmp.low);
-    // result.low += tmp.low;
-    // console.log("low: ", result.low);
-    console.log("result: ", result);
     that.setData({
       totalScore: result,
     })
   },
 
+  // this func may be truncate
   checkThreeYearAsset() {
     var that = this;
-    var thisYear = that.data.thisYearAsset;
-    var lastYear = that.data.lastYearAsset;
-    var beforeLastYear = that.data.beforeLastYearAsset;
-
-    console.log("net Rate Flag: ", that.data.thisYearAssetFlag);
-    console.log("net Rate Flag: ", that.data.lastYearAssetFlag);
-    console.log("net Rate Flag: ", that.data.beforeLastYearAssetFlag);
     this.checkNetGrowthRate();
 
   },
 
   checkNetGrowthRate() {
     var that = this;
-    console.log("null flag: ", that.data.thisYearAssetFlag)
-    console.log("null flag: ", that.data.lastYearAssetFlag)
-    console.log("null flag: ", that.data.beforeLastYearAssetFlag)
     if (that.data.thisYearAssetFlag == null || that.data.lastYearAssetFlag == null || that.data.beforeLastYearAssetFlag == null) {
       return;
     }
@@ -767,8 +673,6 @@ Page({
     that.setData({
       netAssetGrowthRateFlag: flag,
     })
-    console.log("final rate: ", flag)
-    console.log("final rate: ", that.data.netAssetGrowthRateFlag)
     if (netRate != null && !isNaN(netRate) && isFinite(netRate)) {
 
     } else {
@@ -799,7 +703,6 @@ Page({
     netAssetGrowthRateScore: JSON.stringify(score),
   });
   that.aggregateScore();
-  console.log("rate score: ", that.data.netAssetGrowthRateScore);
   },
 
   checkSalesGrowthRate() {
@@ -823,7 +726,6 @@ Page({
       salesRevenueGrowthRateFlag: flag,
     })
     if (salesRate != null && !isNaN(salesRate) && isFinite(salesRate)) {
-      console.log("WTF")
     } else {
       salesRate = 0;
     }

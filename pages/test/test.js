@@ -6,6 +6,8 @@ Page({
   /**
    * 页面的初始数据
    */
+  // All 'Flag' indicates the legality of the corresponding variable
+  // The 'Score' is a range, contains a upper 'high' and a lower 'low'
   data: {
     // Date
     date: '',
@@ -52,17 +54,23 @@ Page({
     // Total R&D expenses for the last three years
     threeYearRandD: null,
     threeYearRandDFlag: null,
+    // Total R&D expenses incurred in the territory
     inStateRandD: null,
     RandDRatio: null,
     RandDRatioFlag: false,
+    // Share of domestic R&D expenses
     inStateRatio: null,
-    inStateRatioFlag: false,
+    inStateRatioFlag: null,
   
+    // Revenue from high-tech products or services for the year
     highTechInCome: "",
     highTechInComeFlag: null,
-    highTechRatio: NaN,
-    highTechFlag: NaN,
 
+    // High-tech revenue share 
+    highTechRatio: null,
+    highTechFlag: null,
+
+    // Level of technological sophistication
     advancedDegrees: [
       {value: JSON.stringify({"low": 7, "high": 8}), name: "高"},
       {value: JSON.stringify({"low": 5, "high": 6}), name: "较高"},
@@ -73,6 +81,7 @@ Page({
 
     advancedDegree: JSON.stringify({low: 0, high: 0}),
     
+    // Technically central support role for major products or services
     techImportances: [
       {value: JSON.stringify({low: 7, high: 8}), name: "强"},
       {value: JSON.stringify({low: 5, high: 6}), name: "较高"},
@@ -83,6 +92,7 @@ Page({
 
     techImportance: JSON.stringify({low: 0, high: 0}),
 
+    // Number of intellectual property rights
     IPNumbers: [
       {value: JSON.stringify({low: 7, high: 8}), name: "1项及以上(I类)"},
       {value: JSON.stringify({low: 5, high: 6}), name: "5项及以上(II类)"},
@@ -93,6 +103,7 @@ Page({
 
     IPNumber: JSON.stringify({low: 0, high: 0}),
 
+    // How IP rights are acquired
     IPAcquires: [
       {value: JSON.stringify({low: 1, high: 6}), name: "有自主研发"},
       {value: JSON.stringify({low: 0, high: 0}), name: "受让受赠并购"},
@@ -100,6 +111,7 @@ Page({
 
     IPAcquire: JSON.stringify({low: 0, high: 0}),
 
+    // Participation of enterprises in the preparation of national standards, industry standards, testing methods and technical specifications
     inVolvedInStandards: [
       {value: JSON.stringify({low: 1, high: 2}), name: "是"},
       {value: JSON.stringify({low: 0, high: 0}), name: "否"},
@@ -107,6 +119,7 @@ Page({
 
     inVolvedInStandard: JSON.stringify({low: 0, high: 0}),
 
+    // Ability to transform scientific and technological achievements
     convertAbilitys: [
       {value: JSON.stringify({low: 25, high: 30}), name: "转化能力强"},
       {value: JSON.stringify({low: 19, high: 24}), name: "转化能力较强"},
@@ -118,6 +131,7 @@ Page({
     
     convertAbility: JSON.stringify({low: 0, high: 0}),
 
+    // Research and development organisation and management level 
     manageAbilities: [
       {value: JSON.stringify({low: 0, high: 6}), name: "制定了企业研究开发的组织管理制度，建立了研发投入核算体系，编制了研发费用辅助账"},
       {value: JSON.stringify({low: 0, high: 6}), name: "设立了内部科学技术研究开发机构并具备相应的科研条件，与国内外研究开发机构开展多种形式产学研合作"},
@@ -129,19 +143,26 @@ Page({
       JSON.stringify({low: 0, high: 0})
     ],
 
-    // totalScore: JSON.stringify({low: 0, high: 0}),
     totalScore: {low: 0, high: 0},
 
+    // Net assets for the year
     thisYearAsset: "",
     thisYearAssetFlag: null,
+
+    // Net assets of the last year
     lastYearAsset: "",
     lastYearAssetFlag: null,
+
+    // Net assets of the year before last year
     beforeLastYearAsset: "",
     beforeLastYearAssetFlag: null,
 
+    // Net asset growth rate
     netAssetGrowthRate: 0,
     netAssetGrowthRateFlag: false,
     netAssetGrowthRateScore: JSON.stringify({low: 0, high: 0}),
+
+    // Sales revenue growth rate
     salesRevenueGrowthRate: 0,
     salesRevenueGrowthRateFlag: false,
     salesRevenueGrowthRateScore: JSON.stringify({low: 0, high: 0}),
@@ -451,9 +472,6 @@ Page({
       RandDRatioFlag = true;
       RandDRatio = threeYearRandD/threeYearSale*100;
     }
-    console.log("before null check: ", RandDRatioFlag);
-    console.log("before null check: ", that.data.threeYearSaleAggreFlag);
-    console.log("before null check: ", that.data.threeYearRandDFlag);
     if(that.data.threeYearSaleAggreFlag == null || that.data.threeYearRandDFlag == null) {
       RandDRatioFlag = false;
     }
@@ -599,7 +617,7 @@ Page({
     that.setData({
       thisYearAssetFlag: assetFlag,
     });
-    this.checkThreeYearAsset();
+    this.checkNetGrowthRate();
   },
 
   bindLastYearAsset(e) {
@@ -615,7 +633,7 @@ Page({
     that.setData({
       lastYearAssetFlag: assetFlag,
     });
-    this.checkThreeYearAsset();
+    this.checkNetGrowthRate();
   },
 
   bindBeforeLastYearAsset(e) {
@@ -631,7 +649,7 @@ Page({
     that.setData({
       beforeLastYearAssetFlag: assetFlag,
     });
-    this.checkThreeYearAsset();
+    this.checkNetGrowthRate();
   },
 
   aggregateScore() {
@@ -661,13 +679,6 @@ Page({
     that.setData({
       totalScore: result,
     })
-  },
-
-  // this func may be truncate
-  checkThreeYearAsset() {
-    var that = this;
-    this.checkNetGrowthRate();
-
   },
 
   checkNetGrowthRate() {

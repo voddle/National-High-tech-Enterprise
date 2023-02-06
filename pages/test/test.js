@@ -25,9 +25,9 @@ Page({
     ],
 
     techGuy: null,
-    techGuyFlag: false,
+    techGuyFlag: null,
     allGuy: null,
-    allGuyFlag: false,
+    allGuyFlag: null,
     guyRatio: null,
     guyRatioFlag: false,
 
@@ -295,7 +295,7 @@ Page({
       techGuy: techGuy
     })
     var techGuyFlag = false;
-    if (techGuy == 0) {
+    if (techGuy <= 0 || isNaN(techGuy)) {
       techGuyFlag = true;
     }
     that.setData({
@@ -312,7 +312,7 @@ Page({
       allGuy: allGuy
     })
     var allGuyFlag = false;
-    if (allGuy == 0) {
+    if (allGuy <= 0 || isNaN(allGuy)) {
       allGuyFlag = true;
     }
     that.setData({
@@ -327,16 +327,20 @@ Page({
 
   // should add sth to ratio of Guys
   checkGuyRatio() {
-    console.log("rational")
     var that = this;
+    if (that.data.techGuyFlag == null || that.data.allGuyFlag == null) {
+      return
+    }
+    console.log("rational")
     var guyRatioFlag = false;
     var techGuy = that.data.techGuy;
     var allGuy = that.data.allGuy;
     var guyRatio = null;
-    if(!isNaN(techGuy)&&isFinite(techGuy)&&!isNaN(allGuy)&&isFinite(allGuy)) {
+    console.log("guy flag: ", that.data.techGuyFlag, that.data.allGuyFlag)
+    if(!that.data.techGuyFlag && !that.data.allGuyFlag) {
       guyRatio = techGuy/allGuy*100;
     }
-    if(!isNaN(guyRatio)&&isFinite(guyRatio)) {
+    if(!that.data.techGuyFlag && !that.data.allGuyFlag) {
       guyRatioFlag = true;
     }
     that.setData({

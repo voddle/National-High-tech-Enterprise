@@ -47,7 +47,8 @@ Page({
     inStateRatio: null,
     inStateRatioFlag: false,
   
-    highTechInCome: NaN,
+    highTechInCome: "",
+    highTechInComeFlag: null,
     highTechRatio: NaN,
     highTechFlag: NaN,
 
@@ -121,11 +122,11 @@ Page({
     totalScore: {low: 0, high: 0},
 
     thisYearAsset: "",
-    thisYearAssetFlag: true,
+    thisYearAssetFlag: null,
     lastYearAsset: "",
-    lastYearAssetFlag: true,
+    lastYearAssetFlag: null,
     beforeLastYearAsset: "",
-    beforeLastYearAssetFlag: true,
+    beforeLastYearAssetFlag: null,
 
     netAssetGrowthRate: 0,
     netAssetGrowthRateFlag: false,
@@ -493,28 +494,30 @@ Page({
   checkHighTech(e) {
     var that = this;
     var highTech = e.detail.value;
-    if (highTech == "") {
-      highTech = NaN;
+    var flag = false;
+    if (highTech < 0 || highTech == "" || isNaN(highTech)) {
+      flag = true;
     }
     that.setData({
       highTechInCome: highTech,
+      highTechInComeFlag: flag,
     });
     this.checkHighTechRatio();
   },
 
   checkHighTechRatio() {
     var that = this;
-    var highTech = that.data.highTechInCome;
-    var thisYearTotalInCome = that.data.thisYear;
-    var Flag = false;
-    var Ratio = NaN;
-    if (!isNaN(highTech)&&!isNaN(thisYearTotalInCome)&&thisYearTotalInCome!="") {
-      Ratio = highTech/thisYearTotalInCome*100;
-      Flag = true;
+    var flag = false;
+    var Ratio = "";
+    if (!that.data.thisYearFlag && !that.data.highTechInComeFlag) {
+      console.log("highTech Ratio: ", that.data.highTech);
+      console.log("highTech Ratio: ", that.data.thisYear);
+      Ratio = that.data.highTechInCome/that.data.thisYear*100;
+      flag = true;
     }
     that.setData({
       highTechRatio: Ratio,
-      highTechFlag: Flag,
+      highTechFlag: flag,
     })
   },
 
@@ -632,7 +635,7 @@ Page({
       thisYearAsset: asset
     })
     var assetFlag = false
-    if (asset == "") {
+    if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
     console.log("this year asset flag: ", assetFlag)
@@ -649,7 +652,7 @@ Page({
       lastYearAsset: asset
     })
     var assetFlag = false
-    if (asset == "") {
+    if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
     console.log(assetFlag)
@@ -666,7 +669,7 @@ Page({
       beforeLastYearAsset: asset
     })
     var assetFlag = false
-    if (asset == "") {
+    if (asset == "" || isNaN(asset)) {
       assetFlag = true;
     }
     console.log(assetFlag)
@@ -724,23 +727,22 @@ Page({
     var thisYear = that.data.thisYearAsset;
     var lastYear = that.data.lastYearAsset;
     var beforeLastYear = that.data.beforeLastYearAsset;
-    var flag = false;
-    if (!that.data.thisYearAssetFlag && !that.data.lastYearAssetFlag && !that.data.beforeLastYearAssetFlag) {
-      flag = true;
-    }
+
     console.log("net Rate Flag: ", that.data.thisYearAssetFlag);
     console.log("net Rate Flag: ", that.data.lastYearAssetFlag);
     console.log("net Rate Flag: ", that.data.beforeLastYearAssetFlag);
-    console.log("net Rate Flag: ", flag);
-    that.setData({
-      netAssetGrowthRateFlag: flag,
-    })
     this.checkNetGrowthRate();
 
   },
 
   checkNetGrowthRate() {
     var that = this;
+    console.log("null flag: ", that.data.thisYearAssetFlag)
+    console.log("null flag: ", that.data.lastYearAssetFlag)
+    console.log("null flag: ", that.data.beforeLastYearAssetFlag)
+    if (that.data.thisYearAssetFlag == null || that.data.lastYearAssetFlag == null || that.data.beforeLastYearAssetFlag == null) {
+      return;
+    }
     var thisYear = that.data.thisYearAsset;
     var lastYear = that.data.lastYearAsset;
     var beforeLastYear = that.data.beforeLastYearAsset;
@@ -749,6 +751,15 @@ Page({
     that.setData({
       netAssetGrowthRate: netRate,
     })
+    var flag = false;
+    if (!that.data.thisYearAssetFlag && !that.data.lastYearAssetFlag && !that.data.beforeLastYearAssetFlag) {
+      flag = true;
+    }
+    that.setData({
+      netAssetGrowthRateFlag: flag,
+    })
+    console.log("final rate: ", flag)
+    console.log("final rate: ", that.data.netAssetGrowthRateFlag)
     if (netRate != null && !isNaN(netRate) && isFinite(netRate)) {
 
     } else {
@@ -784,13 +795,8 @@ Page({
 
   checkSalesGrowthRate() {
     var that = this;
-    console.log("null flag: ", that.data.thisYearFlag);
-    console.log("null flag: ", that.data.lastYearFlag);
-    console.log("null flag: ", that.data.beforeLastYearFlag);
     if (that.data.thisYearFlag == null || that.data.lastYearFlag == null || that.data.beforeLastYearFlag == null) {
-      console.log("hello")
       return;
-      console.log("hello")
     }
     var salesRate = 0;
     var thisYearSales = that.data.thisYear;
@@ -804,14 +810,14 @@ Page({
     if (!that.data.thisYeareFlag && !that.data.lastYearFlag && !that.data.beforeLastYearFlag) {
       flag = true;
     }
+    that.setData({
+      salesRevenueGrowthRateFlag: flag,
+    })
     if (salesRate != null && !isNaN(salesRate) && isFinite(salesRate)) {
       console.log("WTF")
     } else {
       salesRate = 0;
     }
-    that.setData({
-      salesRevenueGrowthRateFlag: flag,
-    })
     var score = {"low": 0, "high":0};
     switch (true) {
       case salesRate > 35 || salesRate == 35:

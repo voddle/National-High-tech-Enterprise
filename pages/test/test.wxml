@@ -1,6 +1,5 @@
 <!--pages/test/test.wxml-->
 <view class="container">
-<text bindtap="backToIndex">BACK</text>
 <view class="form-box">
 <form bindsubmit="formSubmit">
   <view class="onePart">

@@ -126,6 +126,52 @@
       <text>*请输入大于零整数</text>
     </view>
     <view class="oneLine">
+      <text class="titalTail">当年净资产</text>
+      <input name="知识产权数量" placeholder="当年净资产" value="{{thisYearAsset}}" bindinput="bindThisYearAsset"></input>
+    </view>
+    <view wx:if="{{thisYearAssetFlag}}" class="warning">
+      <text>*请输入整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">前一年度净资产</text>
+      <input name="知识产权数量" placeholder="前一年度净资产" value="{{lastYearAsset}}" bindinput="bindLastYearAsset"></input>
+    </view>
+    <view wx:if="{{lastYearAssetFlag}}" class="warning">
+      <text>*请输入整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">前两年度净资产</text>
+      <input name="知识产权数量" placeholder="前二年度净资产" value="{{beforeLastYearAsset}}" bindinput="bindBeforeLastYearAsset"></input>
+    </view>
+    <view wx:if="{{beforeLastYearAssetFlag}}" class="warning">
+      <text>*请输入整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">当年高新收入</text>
+      <input name="当年高新收入" placeholder="当年高新技术/产品收入" value="{{highTechInCome}}" bindinput="checkHighTech"></input>
+    </view>
+    <view wx:if="{{highTechInComeFlag}}" class="warning">
+      <text>*请输入大于等于零整数</text>
+    </view>
+    <view wx:else="" class="warning">
+      <text> </text>
+    </view>
+  </view>
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">三年收入总和</text>
+      <block wx:if="{{threeYearSaleAggreFlag}}">
+        <text>{{threeYearSaleAggre}}%</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">近三年销售收入总额</text>
+      </block>
+    </view>
+
+    <view class="oneLine">
       <text class="titalTail">研发费用占比</text>
       <block wx:if="{{RandDRatioFlag}}">
         <text>{{RandDRatio}}%</text>
@@ -158,15 +204,6 @@
     <view wx:else="" class="warning">
       <text> </text>
     </view>
-  </view>
-  <view class="onePart">
-    <view class="oneLine">
-      <text class="titalTail">当年高新收入</text>
-      <input name="当年高新收入" placeholder="当年高新技术/产品收入" value="{{highTechInCome}}" bindinput="checkHighTech"></input>
-    </view>
-    <view wx:if="{{highTechInComeFlag}}" class="warning">
-      <text>*请输入大于等于零整数</text>
-    </view>
 
     <view class="oneLine">
       <text class="titalTail">高新收入占比</text>
@@ -182,29 +219,6 @@
     </view>
     <view wx:else="" class="warning">
       <text> </text>
-    </view>
-    <view class="oneLine">
-      <text class="titalTail">当年净资产</text>
-      <input name="知识产权数量" placeholder="当年净资产" value="{{thisYearAsset}}" bindinput="bindThisYearAsset"></input>
-    </view>
-    <view wx:if="{{thisYearAssetFlag}}" class="warning">
-      <text>*请输入整数</text>
-    </view>
-
-    <view class="oneLine">
-      <text class="titalTail">前一年度净资产</text>
-      <input name="知识产权数量" placeholder="前一年度净资产" value="{{lastYearAsset}}" bindinput="bindLastYearAsset"></input>
-    </view>
-    <view wx:if="{{lastYearAssetFlag}}" class="warning">
-      <text>*请输入整数</text>
-    </view>
-
-    <view class="oneLine">
-      <text class="titalTail">前两年度净资产</text>
-      <input name="知识产权数量" placeholder="前二年度净资产" value="{{beforeLastYearAsset}}" bindinput="bindBeforeLastYearAsset"></input>
-    </view>
-    <view wx:if="{{beforeLastYearAssetFlag}}" class="warning">
-      <text>*请输入整数</text>
     </view>
 
     <view class="oneLine">

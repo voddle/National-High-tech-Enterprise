@@ -39,6 +39,7 @@ Page({
     beforeLastYearFlag: null,
 
     threeYearSaleAggre: null,
+    threeYearSaleAggreFlag: false,
     threeYearRandD: NaN,
     threeYearRandDFlag: NaN,
     inStateRandD: NaN,
@@ -409,14 +410,22 @@ Page({
 
   checkThreeYearSaleAggre() {
     var that = this;
+    if (that.data.thisYearFlag == null || that.data.lastYearFlag == null || that.data.beforeLastYearFlag == null) {
+      return;
+    }
     var thisYear = that.data.thisYear;
     var lastYear = that.data.lastYear;
     var beforeLastYear = that.data.beforeLastYear;
+    var flag = false;
     if (!that.data.thisYearFlag && !that.data.lastYearFlag && !that.data.beforeLastYearFlag) {
       that.setData({
         threeYearSaleAggre: parseInt(thisYear) + parseInt(lastYear) + parseInt(beforeLastYear),
       })
+      flag = true;
     }
+    that.setData({
+      threeYearSaleAggreFlag: flag,
+    })
     console.log("sale rate flag: ", !that.data.thisYearFlag);
     console.log("sale rate flag: ", !that.data.lastYearFlag);
     console.log("sale rate flag: ", !that.data.beforeLastYearFlag);

@@ -259,7 +259,7 @@ Page({
       IPnum: ip_num
     })
     var ipFlag = false
-    if (ip_num <= 0) {
+    if (ip_num <= 0 || isNaN(ip_num)) {
       ipFlag = true
     }
     console.log(ipFlag)

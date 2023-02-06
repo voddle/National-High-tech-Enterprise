@@ -7,12 +7,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // Date
     date: '',
     dateFlag: false,
 
+    // IP number
     IPnum: null,
     IPFlag: false,
 
+    // High-tech field
     areaItems: [
       {value: '电子信息', name: '电子信息'},
       {value: '生物与新医药', name: '生物与新医药'},
@@ -24,25 +27,32 @@ Page({
       {value: '先进制造与自动化', name: '先进制造与自动化'},
     ],
 
+    // Number of scientific and technical staff
     techGuy: null,
     techGuyFlag: null,
+    // Total number of people
     allGuy: null,
     allGuyFlag: null,
+    // Percentage of scientific and technical staff
     guyRatio: null,
     guyRatioFlag: false,
 
+    // Sales revenue for the year
     thisYear: "",
     lastYear: "",
+    // Sales revenue for the last year
     beforeLastYear: "",
     thisYearFlag: null,
+    // Sales revenue in the year before last year
     lastYearFlag: null,
     beforeLastYearFlag: null,
-
+    // Total sales revenue for the last three years
     threeYearSaleAggre: null,
-    threeYearSaleAggreFlag: false,
-    threeYearRandD: NaN,
-    threeYearRandDFlag: NaN,
-    inStateRandD: NaN,
+    threeYearSaleAggreFlag: null,
+    // Total R&D expenses for the last three years
+    threeYearRandD: null,
+    threeYearRandDFlag: null,
+    inStateRandD: null,
     RandDRatio: null,
     RandDRatioFlag: false,
     inStateRatio: null,
@@ -437,10 +447,17 @@ Page({
     var threeYearRandD = that.data.threeYearRandD;
     var RandDRatioFlag = false;
     var RandDRatio = null;
-    if(!isNaN(threeYearSale)&&!isNaN(threeYearRandD)) {
+    if(that.data.threeYearSaleAggreFlag && !that.data.threeYearRandDFlag) {
       RandDRatioFlag = true;
       RandDRatio = threeYearRandD/threeYearSale*100;
     }
+    console.log("before null check: ", RandDRatioFlag);
+    console.log("before null check: ", that.data.threeYearSaleAggreFlag);
+    console.log("before null check: ", that.data.threeYearRandDFlag);
+    if(that.data.threeYearSaleAggreFlag == null || that.data.threeYearRandDFlag == null) {
+      RandDRatioFlag = false;
+    }
+    console.log("after null check: ", RandDRatioFlag)
     that.setData({
       RandDRatio: RandDRatio,
       RandDRatioFlag: RandDRatioFlag,

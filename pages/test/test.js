@@ -403,6 +403,7 @@ Page({
       beforeLastYearFlag: yearFlag,
     });
     this.checkThreeYearSaleAggre();
+    this.checkRandDRatio();
   },
 
   checkThreeYearSaleAggre() {
@@ -410,20 +411,14 @@ Page({
     var thisYear = that.data.thisYear;
     var lastYear = that.data.lastYear;
     var beforeLastYear = that.data.beforeLastYear;
-    var flag = false;
     if (!that.data.thisYearFlag && !that.data.lastYearFlag && !that.data.beforeLastYearFlag) {
       that.setData({
         threeYearSaleAggre: parseInt(thisYear) + parseInt(lastYear) + parseInt(beforeLastYear),
       })
-      flag = true;
     }
     console.log("sale rate flag: ", !that.data.thisYearFlag);
     console.log("sale rate flag: ", !that.data.lastYearFlag);
     console.log("sale rate flag: ", !that.data.beforeLastYearFlag);
-    console.log("sale rate flag: ", flag);
-    that.setData({
-      salesRevenueGrowthRateFlag: flag,
-    })
     this.checkRandDRatio();
     this.checkSalesGrowthRate();
   },
@@ -789,6 +784,14 @@ Page({
 
   checkSalesGrowthRate() {
     var that = this;
+    console.log("null flag: ", that.data.thisYearFlag);
+    console.log("null flag: ", that.data.lastYearFlag);
+    console.log("null flag: ", that.data.beforeLastYearFlag);
+    if (that.data.thisYearFlag == null || that.data.lastYearFlag == null || that.data.beforeLastYearFlag == null) {
+      console.log("hello")
+      return;
+      console.log("hello")
+    }
     var salesRate = 0;
     var thisYearSales = that.data.thisYear;
     var lastYearSales = that.data.lastYear;
@@ -797,10 +800,18 @@ Page({
     that.setData({
       salesRevenueGrowthRate: salesRate,
     })
+    var flag = false;
+    if (!that.data.thisYeareFlag && !that.data.lastYearFlag && !that.data.beforeLastYearFlag) {
+      flag = true;
+    }
     if (salesRate != null && !isNaN(salesRate) && isFinite(salesRate)) {
+      console.log("WTF")
     } else {
       salesRate = 0;
     }
+    that.setData({
+      salesRevenueGrowthRateFlag: flag,
+    })
     var score = {"low": 0, "high":0};
     switch (true) {
       case salesRate > 35 || salesRate == 35:

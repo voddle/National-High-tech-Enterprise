@@ -101,7 +101,7 @@
   <view class="onePart">
     <view class="oneLine">
       <text class="titalTail">当年销售收入</text>
-      <input name="当年销售收入" placeholder="当年销售收入" value="{{thisYear}}" bindinput="thisYear"></input>
+      <input name="当年销售收入" placeholder="请输入大于等于零整数" value="{{thisYear}}" bindinput="thisYear"></input>
     </view>
     <view wx:if="{{thisYearFlag}}" class="warning">
       <text>*请输入大于零整数</text>
@@ -109,7 +109,7 @@
 
     <view class="oneLine">
       <text class="titalTail">去年销售收入</text>
-      <input name="去年销售收入" placeholder="去年销售收入" value="{{lastYear}}" bindinput="lastYear"></input>
+      <input name="去年销售收入" placeholder="请输入大于等于零整数" value="{{lastYear}}" bindinput="lastYear"></input>
     </view>
     <view wx:if="{{lastYearFlag}}" class="warning">
       <text>*请输入大于零整数</text>
@@ -117,7 +117,7 @@
 
     <view class="oneLine">
       <text class="titalTail">前年销售收入</text>
-      <input name="前年销售收入" placeholder="前年销售收入" value="{{beforeLastYear}}" bindinput="beforeLastYear"></input>
+      <input name="前年销售收入" placeholder="请输入大于等于零整数" value="{{beforeLastYear}}" bindinput="beforeLastYear"></input>
     </view>
     <view wx:if="{{beforeLastYearFlag}}" class="warning">
       <text>*请输入大于零整数</text>
@@ -125,14 +125,14 @@
 
     <view class="oneLine">
       <text class="titalTail">三年研发投入</text>
-      <input name="三年研发投入" placeholder="近三年研发投入总额" value="{{threeYearRandD}}" bindinput="threeYearRandD"></input>
+      <input name="三年研发投入" placeholder="请输入大于等于零整数" value="{{threeYearRandD}}" bindinput="threeYearRandD"></input>
     </view>
     <view wx:if="{{threeYearRandDFlag}}" class="warning">
       <text>*请输入大于零整数</text>
     </view>
     <view class="oneLine">
       <text class="titalTail">境内发生研发费用总额</text>
-      <input name="境内发生研发费用总额" placeholder="境内发生研发费用总额" value="{{inStateRandD}}" bindinput="inStateRandD"></input>
+      <input name="境内发生研发费用总额" placeholder="请输入大于等于零整数" value="{{inStateRandD}}" bindinput="inStateRandD"></input>
     </view>
     <view wx:if="{{techGuyFlag}}" class="warning">
       <text>*请输入大于零整数</text>
@@ -193,36 +193,19 @@
     </view>
     <view class="oneLine">
       <text class="titalTail">当年净资产</text>
-      <input name="知识产权数量" placeholder="当年净资产" value="{{thisYearAsset}}" bindinput="bindThisYearAsset"></input>
-    </view>
-    <view wx:if="{{IPFlag}}" class="warning">
-      <text>*</text>
-    </view>
-    <view wx:else class="warning">
-      <text> </text>
+      <input name="知识产权数量" placeholder="请输入大于等于零整数" value="{{thisYearAsset}}" bindinput="bindThisYearAsset"></input>
     </view>
 
     <view class="oneLine">
       <text class="titalTail">前一年度净资产</text>
-      <input name="知识产权数量" placeholder="前一年度净资产" value="{{lastYearAsset}}" bindinput="bindLastYearAsset"></input>
-    </view>
-    <view wx:if="{{IPFlag}}" class="warning">
-      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
-    </view>
-    <view wx:else class="warning">
-      <text> </text>
+      <input name="知识产权数量" placeholder="请输入大于等于零整数" value="{{lastYearAsset}}" bindinput="bindLastYearAsset"></input>
     </view>
 
     <view class="oneLine">
       <text class="titalTail">前两年度净资产</text>
-      <input name="知识产权数量" placeholder="前两年度净资产" value="{{beforeLastYearAsset}}" bindinput="bindBeforeLastYearAsset"></input>
+      <input name="知识产权数量" placeholder="请输入大于等于零整数" value="{{beforeLastYearAsset}}" bindinput="bindBeforeLastYearAsset"></input>
     </view>
-    <view wx:if="{{IPFlag}}" class="warning">
-      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
-    </view>
-    <view wx:else class="warning">
-      <text> </text>
-    </view>
+
     <view class="oneLine">
       <text class="titalTail">净资产增长率</text>
       <block wx:if="{{netAssetGrowthRateFlag}}">

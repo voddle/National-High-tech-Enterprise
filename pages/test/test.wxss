@@ -1,0 +1,51 @@
+/* pages/test/test.wxss */
+.oneLine {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.onePart {
+  border-bottom: thin solid gray;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.titalTail {
+  border-right: thin solid gray;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.checkTail {
+  width: 130px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+checkbox .wx-checkbox-input {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.warning {
+  min-height: 10px;
+  max-width: 550rpx;
+  text-align: center;
+  font-size: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  opacity: 50%;
+  color: red;
+}
+
+.defaultRatio {
+  color: gray;
+}

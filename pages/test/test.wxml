@@ -1,0 +1,366 @@
+<!--pages/test/test.wxml-->
+<view class="container">
+<text bindtap="backToIndex">BACK</text>
+<view class="form-box">
+<form bindsubmit="formSubmit">
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">成立时间</text>
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+    <view wx:if="{{dateFlag}}" class="warning">
+      <text>*企业申请认定时须注册成立一年以上</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+  </view>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">知识产权数量</text>
+      <input name="知识产权数量" placeholder="知识产权数量" value="{{IPnum}}" bindinput="bindIPChange"></input>
+    </view>
+    <view wx:if="{{IPFlag}}" class="warning">
+      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+  </view>
+
+ <!---// well this is another way to do listen the checkbox, consider here later --->
+  <wxs module="v1">
+  var include = function(array, value) {
+    var has = false;
+    for (var i = 0; i < array.length; ++i) {
+      if (array[i] == value) {
+        has = true;
+      }
+    }
+  }
+  </wxs>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">高新技术领域</text>
+      <checkbox-group name="checkbox" bindchange="IPChagne">
+         <label wx:for="{{areaItems}}" wx:key="index">
+          <view class="oneLine">
+            <text class="checkTail">{{item.name}}</text>
+            <checkbox value="{{item.value}}" checked=""/>
+          </view>
+        </label>
+      </checkbox-group>
+    </view>
+    <view wx:if="{{false}}" class="warning">
+      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+  </view>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">科技人员人数</text>
+      <input name="科技人员人数" placeholder="科技人员人数" value="{{techGuy}}" bindinput="techGuyChange"></input>
+    </view>
+    <view wx:if="{{techGuyFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">总人数</text>
+      <input name="总人数" placeholder="总人数" value="{{allGuy}}" bindinput="allGuyChange"></input>
+    </view>
+    <view wx:if="{{allGuyFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">科技人员占比</text>
+      <block wx:if="{{guyRatioFlag}}">
+        <text>{{guyRatio+"%"}}</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">科技人员占比</text>
+      </block>
+    </view>
+    <view wx:if="{{guyRatioFlag&&guyRatio<10}}" class="warning">
+      <text>*比例应大于10</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+
+  </view>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">当年销售收入</text>
+      <input name="当年销售收入" placeholder="当年销售收入" value="{{thisYear}}" bindinput="thisYear"></input>
+    </view>
+    <view wx:if="{{thisYearFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">去年销售收入</text>
+      <input name="去年销售收入" placeholder="去年销售收入" value="{{lastYear}}" bindinput="lastYear"></input>
+    </view>
+    <view wx:if="{{lastYearFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">前年销售收入</text>
+      <input name="前年销售收入" placeholder="前年销售收入" value="{{beforeLastYear}}" bindinput="beforeLastYear"></input>
+    </view>
+    <view wx:if="{{beforeLastYearFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">三年研发投入</text>
+      <input name="三年研发投入" placeholder="近三年研发投入总额" value="{{threeYearRandD}}" bindinput="threeYearRandD"></input>
+    </view>
+    <view wx:if="{{threeYearRandDFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">境内发生研发费用总额</text>
+      <input name="境内发生研发费用总额" placeholder="境内发生研发费用总额" value="{{inStateRandD}}" bindinput="inStateRandD"></input>
+    </view>
+    <view wx:if="{{techGuyFlag}}" class="warning">
+      <text>*请输入大于零整数</text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">研发费用占比</text>
+      <block wx:if="{{RandDRatioFlag}}">
+        <text>{{RandDRatio}}%</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">三年研发/三年销售</text>
+      </block>
+    </view>
+    <view wx:if="{{RandDRatioFlag&&thisYear<50000000&&RandDRatio<5}}" class="warning">
+      <text>*比例应大于5</text>
+    </view>
+    <view wx:if="{{RandDRatioFlag&&(thisYear>=50000000&&thisYear<200000000)&&RandDRatio<4}}" class="warning">
+      <text>*比例应大于4</text>
+    </view>
+    <view wx:if="{{RandDRatioFlag&&thisYear>=200000000&&RandDRatio<3}}" class="warning">
+      <text>*比例应大于3</text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">境内研发占比</text>
+      <block wx:if="{{inStateRatioFlag}}">
+        <text>{{inStateRatio+"%"}}</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">境内研发/总研发</text>
+      </block>
+    </view>
+    <view wx:if="{{inStateRatioFlag&&inStateRatio<60}}" class="warning">
+      <text>should greater than 60%</text>
+    </view>
+    <view wx:else="" class="warning">
+      <text> </text>
+    </view>
+  </view>
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">当年高新收入</text>
+      <input name="当年高新收入" placeholder="当年高新技术/产品收入" value="{{highTechInCome}}" bindinput="checkHighTech"></input>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">高新收入占比</text>
+      <block wx:if="{{highTechFlag}}">
+        <text>{{highTechRatio+"%"}}</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">高新收入/当年收入</text>
+      </block>
+    </view>
+    <view wx:if="{{highTechFlag&&highTechRatio<60}}" class="warning">
+      <text>should greater than 60%</text>
+    </view>
+    <view wx:else="" class="warning">
+      <text> </text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">当年净资产</text>
+      <input name="知识产权数量" placeholder="当年净资产" value="{{thisYearAsset}}" bindinput="bindThisYearAsset"></input>
+    </view>
+    <view wx:if="{{IPFlag}}" class="warning">
+      <text>*</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">前一年度净资产</text>
+      <input name="知识产权数量" placeholder="前一年度净资产" value="{{lastYearAsset}}" bindinput="bindLastYearAsset"></input>
+    </view>
+    <view wx:if="{{IPFlag}}" class="warning">
+      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">前两年度净资产</text>
+      <input name="知识产权数量" placeholder="前两年度净资产" value="{{beforeLastYearAsset}}" bindinput="bindBeforeLastYearAsset"></input>
+    </view>
+    <view wx:if="{{IPFlag}}" class="warning">
+      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">净资产增长率</text>
+      <block wx:if="{{netAssetGrowthRateFlag}}">
+        <text>{{netAssetGrowthRate+"%"}}</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">净资产增长率</text>
+      </block>
+    </view>
+    <view class="oneLine">
+      <text class="titalTail">销售收入增长率</text>
+      <block wx:if="{{salesRevenueGrowthRateFlag}}">
+        <text>{{salesRevenueGrowthRate+"%"}}</text>
+      </block>
+      <block wx:else>
+        <text class="defaultRatio">销售收入增长率</text>
+      </block>
+    </view>
+  </view>
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">先进程度</text>
+      <radio-group bindchange="advancedDegreesChanges">
+        <lable wx:for="{{advancedDegrees}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">技术作用</text>
+      <radio-group bindchange="advancedTechImportances">
+        <lable wx:for="{{techImportances}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">知识产权数量</text>
+      <radio-group bindchange="advancedIPNumbers">
+        <lable wx:for="{{IPNumbers}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">知识产权获得方式</text>
+      <radio-group bindchange="advancedIPAcquires">
+        <lable wx:for="{{IPAcquires}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">企业参与制定</text>
+      <radio-group bindchange="advancedInVolveStandards">
+        <lable wx:for="{{inVolvedInStandards}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">转化能力</text>
+      <radio-group bindchange="advancedConvertAbilitys">
+        <lable wx:for="{{convertAbilitys}}" wx:key="index">
+          <view class="oneLine">
+            <radio value="{{item.value}}" checked="true"/>
+            <text>{{item.name}}</text>
+          </view>
+        </lable>
+      </radio-group>
+    </view>
+
+    <view class="oneLine">
+      <text class="titalTail">研究开发组织管理水平</text>
+      <checkbox-group name="checkbox" bindchange="advancedManageAbilities">
+         <label wx:for="{{manageAbilities}}" wx:key="index">
+          <view class="oneLine">
+            <text class="checkTail">{{item.name}}</text>
+            <checkbox value="{{item.value}}" checked=""/>
+          </view>
+        </label>
+      </checkbox-group>
+    </view>
+    <view wx:if="{{false}}" class="warning">
+      <text>*企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权</text>
+    </view>
+    <view wx:else class="warning">
+      <text> </text>
+    </view>
+
+
+
+  </view>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">企业申请认定前一年内未发生重大安全、重大质量事故或严重环境违法行为</text>
+      <radio-group bindchange="advancedDegreeChange">
+        <view class="oneLine">
+          <radio value="yes" checked="false"/>
+          <text>是</text>
+        </view>
+        <view class="oneLine">
+          <radio value="no" checked="false"/>
+          <text>否</text>
+        </view>
+      </radio-group>
+    </view>
+
+  </view>
+
+  <view class="onePart">
+    <view class="oneLine">
+      <text class="titalTail">分数范围</text>
+      <text>{{totalScore.low}}-{{totalScore.high}}</text>
+    </view>
+  </view>
+
+</form>
+</view>
+</view>
